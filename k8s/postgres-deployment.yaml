@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lighthouse-postgresql
+  labels:
+    name: lighthouse-postgresql
+    app: lighthouse-audit 
+  namespace: dx-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: postgres-pod
+      app: lighthouse-audit
+  template:
+    metadata:
+      name: postgres-app-pod
+      labels:
+        name: postgres-pod
+        app: lighthouse-audit
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "pgadminuser"
+            - name: POSTGRES_PASSWORD
+              value: "pgadminuser"
+            - name: POSTGRES_DB
+              value: "lighthouse"

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    backstage.io/kubernetes-id: lighthouse-audit
+  name: lighthouse-audit
+  namespace: dx-apps
+spec:
+  rules:
+  - host: lighthouse-audit.drke.ok8s.aa.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: lighthouse-audit
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - ip: 172.18.84.32
+    - ip: 172.18.84.33
+    - ip: 172.18.84.35

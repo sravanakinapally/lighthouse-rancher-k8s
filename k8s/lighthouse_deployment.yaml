@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    backstage.io/kubernetes-id: lighthouse-audit
+  name: lighthouse-audit
+  namespace: dx-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lighthouse-audit
+  template:
+    metadata:
+      labels:
+        app: lighthouse-audit
+        backstage.io/kubernetes-id: lighthouse-audit
+    spec:
+      containers:
+      - env:
+        - name: PGUSER
+          value: "pgadminuser"
+        - name: PGHOST
+          value: "essv7k8d00002.qcorpaa.aa.com"
+        - name: PGDATABASE
+          value: "lighthouse"
+        - name: PGPORT
+          value: "31715"
+        - name: LAS_CORS
+          value: "true"
+        - name: PORT
+          value: "8080"
+        - name: PGPASSWORD
+          value: "pgadminuser"
+        image: spotify/lighthouse-audit-service:latest
+        imagePullPolicy: IfNotPresent
+        name: lighthouse-audit
+        ports:
+        - containerPort: 8080
+          protocol: TCP
