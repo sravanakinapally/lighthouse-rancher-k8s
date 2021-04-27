@@ -1,25 +1,25 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   labels:
     backstage.io/kubernetes-id: lighthouse-audit
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: devexp-prod
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.class: addon-http-application-routing
   name: lighthouse-audit
-  namespace: dx-apps
+  namespace: dx-poc
 spec:
   rules:
-  - host: lighthouse-audit.drke.ok8s.aa.com
+  - host: lighthouse-audit.3b709546ecd14fc68eab.eastus.aksapp.io
     http:
       paths:
-      - backend:
-          service:
-            name: lighthouse-audit
-            port:
-              number: 8080
-        path: /
-        pathType: ImplementationSpecific
-status:
-  loadBalancer:
-    ingress:
-    - ip: 172.18.84.32
-    - ip: 172.18.84.33
-    - ip: 172.18.84.35
+      - path: /
+        backend:
+          serviceName: lighthouse-audit
+          servicePort: 8080
+  tls:
+    - hosts:
+      - lighthouse-audit.3b709546ecd14fc68eab.eastus.aksapp.io
+      secretName: lighthouse-audit-tls-secret-poc

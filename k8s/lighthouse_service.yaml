@@ -4,6 +4,7 @@ metadata:
   labels:
     backstage.io/kubernetes-id: lighthouse-audit
   name: lighthouse-audit
+  namespace: dx-poc
 spec:
   type: NodePort
   ports:
