@@ -4,7 +4,7 @@ metadata:
   labels:
     backstage.io/kubernetes-id: lighthouse-audit
   name: lighthouse-audit
-  namespace: dx-apps
+  namespace: dx-poc
 spec:
   replicas: 1
   selector:
@@ -21,11 +21,11 @@ spec:
         - name: PGUSER
           value: "pgadminuser"
         - name: PGHOST
-          value: "essv7k8d00002.qcorpaa.aa.com"
+          value: "lighthouse-pgdb-svc.dx-poc.svc.cluster.local"
         - name: PGDATABASE
           value: "lighthouse"
         - name: PGPORT
-          value: "31715"
+          value: "5432"
         - name: LAS_CORS
           value: "true"
         - name: PORT

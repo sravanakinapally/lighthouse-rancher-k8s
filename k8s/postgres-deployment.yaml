@@ -5,7 +5,7 @@ metadata:
   labels:
     name: lighthouse-postgresql
     app: lighthouse-audit 
-  namespace: dx-apps
+  namespace: dx-poc
 spec:
   replicas: 1
   selector:
